@@ -1,1 +1,146 @@
+    int top=-1;
+    printf("\n enter a valid postfic expression");
+    scanf("%s",&expr);
+    for(i=0;i<strlen(expr);i++)
+    {
+        symbol=expr[i];
+        if(isdigit(symbol))
+        {
+            push(iastack,&top,symbol-'0');
+        }
+        else
+        {
+            op2=pop(iastack,&top);
+            op1=pop(iastack,&top);
+            switch(symbol)
+            {
+                case'+':res=op1+op2;
+                            break;
+                case'-':res=op1-op2;
+                            break;
+                case'*':res=op1*op2;
+                            break;
+                case'/':res=op1/op2;
+                            break;
+                case'%':res=op1%op2;
+                            break;
+                case'^':res=(int)pow(op1,op2);
+                            break;
+            }
+            push(iastack,&top,res);
+        }
+    }
+    res=pop(iastack,&top);
+    printf("tne value of %s expression is:%d",expr,res);
+    return 0;
+}
+void push(int Stack[],int*t,int elem)
+{
+    *t=*t+1;
+    Stack[*t]=elem;
+}
+int pop(int Stack[],int*t)
+{
+    int elem;
+    elem=Stack[*t];
+    *t=*t-1;
+    return elem;
+}
 
+OUTPUT=enter a valid postfic expression23+3*
+tne value of 23+3* expression is:15
+
+
+b-// move tower of hanio disk
+#include<stdio.h>
+void towers(int,char,char,char);
+int main()
+{
+    int num;
+    printf("enter the number of disk");
+    scanf("%d",&num);
+    printf("\nThe sequence of disk involved in tower of hanio");
+    towers(num,'A','C','B');
+    printf("\n");
+}
+void towers(int num,char frompeg,char topeg,char auxpeg)
+{
+    if(num==1)
+    {
+        printf("\nmove 1 disk from peg %c to peg %c",frompeg,topeg);
+        return;
+    }
+    towers(num-1,frompeg,auxpeg,topeg);
+    printf("\nmove %d disk from peg %c to peg %c",num,frompeg,topeg);
+    towers(num-1,auxpeg,topeg,frompeg);
+}
+lab6=
+#include <stdio.h>
+#include<stdlib.h>
+#define QSIZE 4
+int q[QSIZE],r=-1,f=0,count=0,item;
+void insert()
+{
+    if(count==QSIZE)
+    {
+        printf("queue is full\n");
+        return;
+    }
+    r=(r+1)%QSIZE;
+    q[r]=item;
+    count++;
+}
+void del()
+{
+    if(count==0)
+    {
+        printf("queue is empty\n");
+        return;
+    }
+    printf("item is deleted %d\n",q[f]);
+    f=(f+1)%QSIZE;
+    count--;
+}
+void display(int front)
+{
+    int i;
+    if(count==0)
+    {
+        printf("queue is empty");
+        return;
+    }
+    printf("contents of the queue\n");
+    for(i=1;i<=count;i++)
+    {
+        printf("%d\n",q[front]);
+        front=(front+1)%QSIZE;
+    }
+}
+void main()
+{
+    int choice;
+    do
+    {
+        printf("\n************\n");
+        printf("circular queue operation\n");
+        printf("1.insert\n");
+        printf("2.delete\n");
+        printf("3.display\n");
+        printf("4.quit\n");
+        printf("enter your choice\n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:printf("enter the item to be insert\n");
+                   scanf("%d",&item);
+                   insert();
+                   break;
+            case 2:del();
+                   break;
+            case 3:display(f);
+                   break;
+            case 4:exit(0);
+            default:printf("invalid choice");
+        }
+    }while(choice!=4);
+}
